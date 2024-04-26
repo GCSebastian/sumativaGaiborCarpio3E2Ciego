@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -13,12 +15,17 @@ export class HomePage {
 
   
 
-  checkTemperature() {
+  async checkTemperature() {
     if (this.Temperatura > 40) {
-      this.showAlert = true; // Muestra la alerta si la temperatura es mayor a 40°C
+      const alert = await this.alertController.create({
+        header: '¡Atención!',
+        message: `La temperatura es ${this.Temperatura}°C`,
+        buttons: ['OK']
+      });
+  
+      await alert.present();
     }
   }
-
 
   async dismissAlert() {
     this.showAlert = false; // Oculta la alerta al cerrarla
@@ -39,4 +46,6 @@ export class HomePage {
     console.log('Nuevo valor de temperatura:', event.detail.value);
     // Aquí puedes realizar acciones adicionales según el valor seleccionado
   }
+
+
 }
